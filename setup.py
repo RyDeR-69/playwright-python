@@ -196,5 +196,6 @@ class PlaywrightBDistWheelCommand(BDistWheelCommand):
 
 
 setup(
+    version=driver_version,
     cmdclass={"bdist_wheel": PlaywrightBDistWheelCommand},
 )
