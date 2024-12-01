@@ -21,7 +21,7 @@ import sys
 import zipfile
 from typing import Dict
 
-driver_version = "1.49.0-beta-1732210972000"
+driver_version = "1.49.0" # -beta-1732210972000
 
 base_wheel_bundles = [
     {
@@ -95,17 +95,19 @@ def download_driver(zip_name: str) -> None:
     zip_file = f"playwright-{driver_version}-{zip_name}.zip"
     if os.path.exists("driver/" + zip_file):
         return
-    url = "https://playwright.azureedge.net/builds/driver/"
-    if (
-        "-alpha" in driver_version
-        or "-beta" in driver_version
-        or "-next" in driver_version
-    ):
-        url = url + "next/"
-    url = url + zip_file
-    print(f"Fetching {url}")
-    # Don't replace this with urllib - Python won't have certificates to do SSL on all platforms.
-    subprocess.check_call(["curl", url, "-o", "driver/" + zip_file])
+    # url = "https://playwright.azureedge.net/builds/driver/"
+    # if (
+    #     "-alpha" in driver_version
+    #     or "-beta" in driver_version
+    #     or "-next" in driver_version
+    # ):
+    #     url = url + "next/"
+    # url = url + zip_file
+    # print(f"Fetching {url}")
+    # # Don't replace this with urllib - Python won't have certificates to do SSL on all platforms.
+    # subprocess.check_call(["curl", url, "-o", "driver/" + zip_file])
+    # use patched drivers from https://github.com/Kaliiiiiiiiii-Vinyzu/patchright
+    shutil.copy(f".drivers/{zip_file}", f"driver/{zip_file}")
 
 
 class PlaywrightBDistWheelCommand(BDistWheelCommand):
